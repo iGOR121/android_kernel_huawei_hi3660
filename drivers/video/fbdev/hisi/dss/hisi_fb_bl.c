@@ -15,8 +15,6 @@
 #include <linux/leds.h>
 #include "lcdkit_backlight_ic_common.h"
 
-#include <chipset_common/hwzrhung/hung_wp_screen.h>
-
 #define K3_DSS_SBL_WORKQUEUE	"k3_dss_sbl_workqueue"
 
 static int lcd_backlight_registered;
@@ -66,7 +64,6 @@ void hisifb_set_backlight(struct hisi_fb_data_type *hisifd, uint32_t bkl_lvl, bo
 			return;
 		}
 
-		hung_wp_screen_setbl(temp);
 		bl_slope_status = true;
 		if (hisifd->backlight.bl_level_old == 0) {
 			bl_slope_status = false;
