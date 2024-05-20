@@ -831,7 +831,10 @@ noinline int slow_avc_audit(u32 ssid, u32 tsid, u16 tclass,
 		ret = 1;
 #endif
 	if (ret == 0)
+
+#ifdef CONFIG_AUDIT
 		common_lsm_audit(a, avc_audit_pre_callback, avc_audit_post_callback);
+#endif
 
 	return 0;
 }

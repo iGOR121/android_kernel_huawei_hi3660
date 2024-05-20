@@ -3237,14 +3237,19 @@ out:
 	return match;
 }
 
+#ifdef CONFIG_AUDIT
 static int (*aurule_callback)(void) = audit_update_lsm_rules;
+#endif
 
 static int aurule_avc_callback(u32 event)
 {
 	int err = 0;
-
+#ifdef CONFIG_AUDIT
 	if (event == AVC_CALLBACK_RESET && aurule_callback)
-		err = aurule_callback();
+                err = aurule_callback();
+#else
+        if (event == AVC_CALLBACK_RESET)
+#endif
 	return err;
 }
 
