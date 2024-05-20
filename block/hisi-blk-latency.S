@@ -442,7 +442,6 @@ hisi_blk_latency_check_timer_expire:
 	ldr	w0, [x19,120]
 	add	x2, x24, :lo12:.LC2
 	ldr	w1, [x19,124]
-	bl	iowp_report
 .LVL42:
 	b	.L21
 .LVL43:
@@ -2441,7 +2440,6 @@ hisi_blk_latency_init:
 .LBE397:
 .LBE396:
 	.loc 1 442 0
-	bl	iowp_workqueue_init
 .LVL208:
 	.loc 1 444 0
 	ldr	x19, [sp,16]
@@ -35677,7 +35675,6 @@ __kcrctab_blk_queue_latency_statistic_set:
 	.4byte	0xd176
 	.byte	0
 	.uleb128 0x83
-	.4byte	.LASF3203
 	.byte	0xaa
 	.byte	0x6
 	.4byte	0x11034
@@ -35832,7 +35829,6 @@ __kcrctab_blk_queue_latency_statistic_set:
 	.4byte	0x11145
 	.byte	0
 	.uleb128 0x89
-	.4byte	.LASF3217
 	.byte	0xaa
 	.byte	0x5
 	.uleb128 0x82
@@ -41076,8 +41072,6 @@ __kcrctab_blk_queue_latency_statistic_set:
 	.string	"ngroups"
 .LASF1932:
 	.string	"free_file_info"
-.LASF3217:
-	.string	"iowp_workqueue_init"
 .LASF547:
 	.string	"user_namespace"
 .LASF3018:
@@ -42340,8 +42334,6 @@ __kcrctab_blk_queue_latency_statistic_set:
 	.string	"cpu_count"
 .LASF407:
 	.string	"default_set"
-.LASF3203:
-	.string	"iowp_report"
 .LASF829:
 	.string	"percpu_ref"
 .LASF1193:

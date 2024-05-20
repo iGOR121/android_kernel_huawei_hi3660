@@ -25,8 +25,9 @@
 #include <linux/timex.h>
 #include <linux/rtc.h>
 #include <linux/workqueue.h>
+#ifdef CONFIG_HW_ZEROHUNG
 #include <chipset_common/hwzrhung/zrhung.h>
-
+#endif
 
 #define ENABLE_SHOW_LEN  6
 #define SIG_TO_INIT      40
@@ -119,21 +120,27 @@ static void init_watchdog_check(void)
             pr_err("InitProcessWatchdog_KernelStack start.\n");
             sched_show_task(p);
             pr_err("InitProcessWatchdog_KernelStack end.\n");
+#ifdef CONFIG_HW_ZEROHUNG
             zrhung_send_event(ZRHUNG_WP_INIT, "R=InitProcessWatchdog_KernelStack", "Init process in d-state for 30s");
+#endif
         }
         goto blocked;
     }
     send_signal_to_init(SIG_TO_INIT);
     pr_err("InitWatchdog: init process blocked for long time!\n");
     if (init_block_times == 1) {
+#ifdef CONFIG_HW_ZEROHUNG
         zrhung_send_event(ZRHUNG_WP_INIT, "R=InitProcessWatchdog_UserStack", "Init process blocked for 30s");
+#endif
     }
     goto blocked;
 
 blocked:
     sched_show_task(p);
     if (init_block_times >= 2 && check_key_process() == 1) {
+#ifdef CONFIG_HW_ZEROHUNG
         zrhung_send_event(ZRHUNG_WP_INIT, NULL, "Init process blocked long time and system_server crashed");
+#endif
         if (system_server_crash >= 2) {
             pr_err("System_server crashed for long time!");
             //panic("Init process blocked"); 
